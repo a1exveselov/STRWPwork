@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UserForm from './UserForm';
 import UserTable from './UserTable';
+import './App.css';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -14,7 +15,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container">
       <UserForm addUser={addUser} />
       <UserTable users={users} deleteUser={deleteUser} />
     </div>

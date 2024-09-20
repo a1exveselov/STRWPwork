@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 function UserForm({ addUser }) {
   const [firstName, setFirstName] = useState('');
@@ -14,26 +15,29 @@ function UserForm({ addUser }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
         type="text"
+        className="input"
         placeholder="First Name"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
       <input
         type="text"
+        className="input"
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
       <input
         type="email"
+        className="input"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="submit">Add User</button>
+      <button className="button" type="submit">Add User</button>
     </form>
   );
 }
