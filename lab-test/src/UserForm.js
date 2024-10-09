@@ -22,6 +22,7 @@ function UserForm({ addUser }) {
         placeholder="First Name"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
+        required
       />
       <input
         type="text"
@@ -29,6 +30,7 @@ function UserForm({ addUser }) {
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
+        required
       />
       <input
         type="email"
