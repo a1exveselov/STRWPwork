@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import UserForm from './UserForm';
-import UserTable from './UserTable';
-import UserCard from './UserCard';
-import { Container, Button, Box } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Container } from '@mui/material';
+import LoginPage from './LoginPage';
+import HomePage from './HomePage';
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [view, setView] = useState('table'); // 'table' or 'cards'
 
@@ -17,26 +18,31 @@ function App() {
   };
 
   return (
-    <Container>
-      <UserForm addUser={addUser} />
-      <Box my={2}>
-        <Button variant="contained" color="primary" onClick={() => setView('table')}>
-          Table View
-        </Button>
-        <Button variant="contained" color="secondary" onClick={() => setView('cards')} style={{ marginLeft: '12px' }}>
-          Card View
-        </Button>
-      </Box>
-      {view === 'table' ? (
-        <UserTable users={users} deleteUser={deleteUser} />
-      ) : (
-        <Box display="flex" flexWrap="wrap" justifyContent="center">
-          {users.map((user, index) => (
-            <UserCard key={index} user={user} deleteUser={deleteUser} />
-          ))}
-        </Box>
-      )}
-    </Container>
+    <Router>
+      <Container>
+        <Routes>
+          <Route path="/" element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
+          <Route
+            path="/home"
+            element={
+              loggedInUser ? (
+                <HomePage
+                  user={loggedInUser}
+                  users={users}
+                  addUser={addUser}
+                  deleteUser={deleteUser}
+                  view={view}
+                  setView={setView}
+                />
+              ) : (
+                <LoginPage setLoggedInUser={setLoggedInUser} />
+              )
+            }
+          />
+          <Route path="*" element={<LoginPage setLoggedInUser={setLoggedInUser} />} /> {/* Redirect to login if no match */}
+        </Routes>
+      </Container>
+    </Router>
   );
 }
 
