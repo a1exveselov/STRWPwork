@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function UserCard({ user }) {
+function UserCard({ user, deleteUser }) {
   return (
-    <Card style={{ margin: '10px', width: '300px' }}>
+    <Card sx={{ margin: 2, width: 300 }}>
       <CardContent>
         <Typography variant="h5" component="div">
           {user.firstName} {user.lastName}
@@ -12,6 +13,9 @@ function UserCard({ user }) {
           {user.email}
         </Typography>
       </CardContent>
+      <IconButton aria-label="delete" onClick={() => deleteUser(user.id)}>
+        <DeleteIcon />
+      </IconButton>
     </Card>
   );
 }

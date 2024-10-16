@@ -1,32 +1,36 @@
 import React from 'react';
-import './App.css';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 
 function UserTable({ users, deleteUser }) {
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th className="th">Id</th>
-          <th className="th">First Name</th>
-          <th className="th">Last Name</th>
-          <th className="th">Email</th>
-          <th className="th">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map(user => (
-          <tr key={user.id}>
-            <td className="td">{user.id}</td>
-            <td className="td">{user.firstName}</td>
-            <td className="td">{user.lastName}</td>
-            <td className="td">{user.email}</td>
-            <td className="td">
-              <button className="delete-button" onClick={() => deleteUser(user.id)}>Delete</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Id</TableCell>
+            <TableCell>First Name</TableCell>
+            <TableCell>Last Name</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>{user.id}</TableCell>
+              <TableCell>{user.firstName}</TableCell>
+              <TableCell>{user.lastName}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>
+                <Button variant="contained" color="secondary" onClick={() => deleteUser(user.id)}>
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

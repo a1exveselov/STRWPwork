@@ -1,46 +1,52 @@
 import React, { useState } from 'react';
-import './App.css';
+import { TextField, Button, Box, Typography } from '@mui/material';
 
 function UserForm({ addUser }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!firstName || !lastName || !email) {
+      setError('All fields are required');
+      return;
+    }
     addUser({ firstName, lastName, email });
     setFirstName('');
     setLastName('');
     setEmail('');
+    setError('');
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="input"
-        placeholder="First Name"
+    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {error && <Typography color="error">{error}</Typography>}
+      <TextField
+        label="First Name"
+        variant="outlined"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
         required
       />
-      <input
-        type="text"
-        className="input"
-        placeholder="Last Name"
+      <TextField
+        label="Last Name"
+        variant="outlined"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
         required
       />
-      <input
-        type="email"
-        className="input"
-        placeholder="Email"
+      <TextField
+        label="Email"
+        variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button className="button" type="submit">Add User</button>
-    </form>
+      <Button variant="contained" color="primary" type="submit">
+        Add User
+      </Button>
+    </Box>
   );
 }
 
