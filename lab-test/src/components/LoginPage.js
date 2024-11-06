@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/authSlice';
 import users from './users';
 
-function LoginPage({ setLoggedInUser }) {
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
-      setLoggedInUser(user);
+      dispatch(login(user));
       navigate('/home');
     } else {
       setError('Invalid credentials');
